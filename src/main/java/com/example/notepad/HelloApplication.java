@@ -24,17 +24,24 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+    //creates a new scene
     public void createNewScene(){
         try{
+            //loads the hello view fxml file
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            //creates a parent variable called root that loads the fxml
             Parent root = fxmlLoader.load();
+            //Creates a HelloController variable that gets the controller
             HelloController controller = fxmlLoader.getController();
+            //sets the HelloApplication variable in the HelloController class to this
             controller.setApplication(this);
+            //Sets the scene
             stage.setScene(new Scene(root));
+            //Sets the Title
             stage.setTitle("Notepad");
-        }
+        }  //catches the exception
         catch(IOException e) {
+            //prints exception
             e.printStackTrace();
         }
     }
