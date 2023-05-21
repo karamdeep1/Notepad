@@ -4,17 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class HelloController extends HelloApplication{
     public HelloController(){}
@@ -112,5 +113,47 @@ public class HelloController extends HelloApplication{
     }
     public void setApplication(HelloApplication myApplication) {
         ha = myApplication;
+    }
+    private void saveMethod() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Text File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        File file =  fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            String text = textArea.getText();
+
+            try (PrintWriter writer = new PrintWriter(file)) {
+                writer.write(text);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void save(ActionEvent e) throws IOException {
+        saveMethod();
+    }
+    private void openMethod() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Text File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+
+        File file = fileChooser.showOpenDialog(stage); // Assuming stage is your main application stage
+
+        if (file != null) {
+            try (Scanner scanner = new Scanner(file)) {
+                StringBuilder content = new StringBuilder();
+
+                while (scanner.hasNextLine()) {
+                    content.append(scanner.nextLine()).append("\n");
+                }
+
+                textArea.setText(content.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void open(ActionEvent e) {
+        openMethod();
     }
 }
