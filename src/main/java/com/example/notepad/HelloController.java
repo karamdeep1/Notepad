@@ -25,6 +25,7 @@ public class HelloController extends HelloApplication{
     private TextArea textArea;
     double size = 11;
     private HelloApplication ha;
+    String textFont;
     String url = "https://www.bing.com/search?q=get+help+with+notepad+in+windows&filters=guid:%224466414-en-dia%22%20lang:%22en%22&form=T00032&ocid=HelpPane-BingIA";
     public void viewHelp(ActionEvent e) throws IOException {
         //creates an instance for the host service
@@ -39,8 +40,10 @@ public class HelloController extends HelloApplication{
         size = font.getSize();
         //increments the size
         size++;
+        //gets current font
+        textFont = font.getName();
         //sets new font size to the text
-        textArea.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, size));
+        textArea.setFont(Font.font(textFont, FontWeight.NORMAL, FontPosture.REGULAR, size));
     }
     public void zoomOut(ActionEvent e) throws IOException {
         //gets the current font
@@ -49,8 +52,10 @@ public class HelloController extends HelloApplication{
         size = font.getSize();
         //decrements the size
         size--;
+        //gets current font
+        textFont = font.getName();
         //sets new font size to the text
-        textArea.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, size));
+        textArea.setFont(Font.font(textFont, FontWeight.NORMAL, FontPosture.REGULAR, size));
     }
     private void showFontPicker() {
         // Create a dialog for font picking
