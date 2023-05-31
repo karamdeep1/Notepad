@@ -68,7 +68,9 @@ public class HelloController extends HelloApplication{
 
         // Create the font family combobox
         ObservableList<String> fontFamilies = FXCollections.observableArrayList(Font.getFamilies());
+        //combo box for the font family
         ComboBox<String> fontFamilyComboBox = new ComboBox<>(fontFamilies);
+        //sets the combo box to the font family
         fontFamilyComboBox.setValue(textArea.getFont().getFamily());
 
         // Create the font size spinner
@@ -86,11 +88,15 @@ public class HelloController extends HelloApplication{
 
         // Convert the result to a font object when OK is clicked
         dialog.setResultConverter(dialogButton -> {
+            //checks if dialogButton is ok as a button
             if (dialogButton == ButtonType.OK) {
+                //gets font
                 String fontFamily = fontFamilyComboBox.getValue();
+                //gets font size
                 double fontSize = fontSizeSpinner.getValue();
+                //string for the font style
                 String fontStyle = "";
-
+                //changes font
                 return Font.font(fontFamily, FontWeight.findByName(fontStyle), fontSize);
             }
             return null;
